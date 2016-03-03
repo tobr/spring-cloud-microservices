@@ -1,0 +1,16 @@
+spring:
+  application.name: movie-service
+  cloud:
+    #config.uri: http://localhost:8888
+    consul:
+      host: docker
+      port: 8500
+      discovery:
+              healthCheckPath: /monitor/health
+              healthCheckInterval: 15s
+      config:
+        enabled: true
+        format: YAML
+
+management:
+  context-path: /monitor
