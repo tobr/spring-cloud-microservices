@@ -33,7 +33,7 @@ connects itself to the Discovery Server
 open browser at http://localhost:8000/movies
 
 
-## Api Gateway
+### Api Gateway
 
 This movie service client is the front door for all internal services.  
 The Api Gateway is the only service, that is available from a client perspective.  
@@ -45,4 +45,23 @@ and Netflix Hystrix for circuit breaking.
 
 example call of the movie titles only http://localhost:9999/movies/titles  
 also take a look into the health check, to see some of the magic that happens in the background http://localhost:9999/health
+
+## Consul
+
+In the `master` branch you find a setup where we use hashicorp (consul)[https://www.consul.io/] for service discovery, dns and configuration.  
+Consul contains a simple key/value store, that could be used to store properties or even yaml configs in it.  
+
+Before we get startet we need to setup a local consul using docker
+
+    $ docker run -p 8400:8400 -p 8500:8500 -p 8600:53/udp -h node1 progrium/consul -server -bootstrap -ui-dir /ui
+
+This will start consul agent in server mode with a gui at http://docker:8500/ui/  
+Now we are able to connect to the consul agent.
+
+First lets put some simple configuration data for the application port in the key/value store
+
+    $ curl -X PUT -d 'server.port: 8000' http://docker:8500/v1/kv/config/movie-service/data
+    $ curl -X PUT -d 'server.port: 9999' http://docker:8500/v1/kv/config/api-gateway/data
+
+Now you yan start the movie-service and the api-gateway as described before and everything should work.
 
