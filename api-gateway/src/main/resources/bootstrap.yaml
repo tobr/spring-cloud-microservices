@@ -1,5 +1,5 @@
 spring:
-  application.name: movie-service
+  application.name: api-gateway
   cloud:
     consul:
       host: docker
