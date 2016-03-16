@@ -7,8 +7,6 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.Collection;
 
-@RepositoryRestResource
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-    @RestResource (path = "by-title")
-    Collection<Movie> findByTitle(@Param("title") final String title);
+
 }
