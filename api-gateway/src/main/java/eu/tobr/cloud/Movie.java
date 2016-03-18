@@ -1,6 +1,6 @@
 package eu.tobr.cloud;
 
-public class ClientMovie {
+public class Movie {
 
     private String title;
 
